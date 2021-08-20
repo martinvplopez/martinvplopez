@@ -1,6 +1,6 @@
 //      Martín van Puffelen López 
 //      2021
-//      Challenge done for FreeCodeCamp´s DS and Algorithms: Roman 
+//      Challenge done for FreeCodeCamp´s DS and Algorithms: Roman Converter
 
 const romanFigures={ // Representation of numbers in roman.
     1:"I",
