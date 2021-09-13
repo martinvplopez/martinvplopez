@@ -14,7 +14,7 @@ const CURRENCYDICTIONARY={ // Dictionary which represents the currency units in 
   "ONE HUNDRED":10000
 }
 
-const STATUS={
+const STATUS={ // Object representing the status of the return
   open:"OPEN",
   closed:"CLOSED",
   insufficient: "INSUFFICIENT_FUNDS"
@@ -29,13 +29,13 @@ function checkCashRegister(price, cash, cid) {
   if (cashRegister.status===STATUS.insufficient) { // Returning the insufficient funds object.
     return cashRegister;
   }
-  if (cashRegister.status===STATUS.closed) { // Returning the insufficient funds object.
+  if (cashRegister.status===STATUS.closed) { // Returning the same closed object with all the money there is in the cash-in-drawer.
     cashRegister.change=cid;
     return cashRegister;
   }
   cashRegister.change= getChangeToGive(change,cid);
 
-  if(getTotalCid(cashRegister.change)!==change){
+  if(getTotalCid(cashRegister.change)!==change){ // If the change to give isn´t exactly the same as the needed.
     cashRegister.status=STATUS.insufficient;
     cashRegister.change=[];
   }
@@ -56,7 +56,8 @@ function getStatusCid(cashRegister,change,sumCid){
   }
   return cashRegister;
 }
-function getTotalCid(cid) {
+
+function getTotalCid(cid) { // Function which computes the amount of money there is in a cash-in-drawer object.
   let sumCid=0;
   for(let i=0;i<cid.length;i++){
     sumCid+=cid[i][1]
@@ -65,7 +66,7 @@ function getTotalCid(cid) {
   return sumCid;
 }
 
-function getChangeToGive(change,cid){
+function getChangeToGive(change,cid){ // Calculates the change which will be returned.
   let changeRes=[];
   for (let i = cid.length-1; i>=0; i--) { // Reading the contents of the cash-in-drawer from highest to lowest.
     const coin = cid[i][0]; // The name of the coin/bill
@@ -76,11 +77,11 @@ function getChangeToGive(change,cid){
 
     while(coinVal<=change && coinAmount>0){ // If the value of the actual coing is less than the change needed and there is in the cash-in-drawer
       coinsReturned++;
-      change-=coinVal;
-      coinAmount--;
+      change-=coinVal; // The value of the coin/bill will substract the value of the change needed.
+      coinAmount--; // There will be one unit less of that coin/bill in the cash-in-drawer
     }
 
-    if(coinsReturned>0){
+    if(coinsReturned>0){ // If there is a coin/bill to return
       changeRes.push([coin, (coinVal*coinsReturned)/100]);
     }
     
