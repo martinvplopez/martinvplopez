@@ -21,7 +21,7 @@ const STATUS={ // Object representing the status of the return
 }
 
 
-function checkCashRegister(price, cash, cid) {
+function checkCashRegister(price, cash, cid) { // Main function
   let cashRegister={status:"", change:[]}; // Result variable
   let change= (cash*100-price*100); // Computing the change
   let sumCid=getTotalCid(cid); // Getting the total in cash-in-drawer
@@ -43,7 +43,7 @@ function checkCashRegister(price, cash, cid) {
   
 }
 
-function getStatusCid(cashRegister,change,sumCid){
+function getStatusCid(cashRegister,change,sumCid){ // Method which determines the status of the change.
   if(sumCid<change){ // Total money in cash-in-drawer is not enough
     cashRegister.status=STATUS.insufficient;
   }
